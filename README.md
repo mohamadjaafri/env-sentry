@@ -15,7 +15,7 @@
 
 ## 🛠️ Installation
 
-<!-- ```bash -->
+```bash
 git clone https://github.com/mohamadjaafri/env-sentry.git
 cd env-sentry
 pip install -e .
@@ -70,7 +70,7 @@ repos:
         name: env-sentry check
         entry: env-sentry .env
         language: system
-        types: [env]
+        files: \.env$
 ```
 
 Then activate it:
