@@ -1,5 +1,6 @@
 import click
 from rich.console import Console
+
 from envsentry.scanner import scan_env_file
 
 console = Console()
@@ -9,7 +10,17 @@ console = Console()
 def scan(filepath):
     """Scan .env file for potential secrets."""
     console.print(f"\n🔍 Scanning [bold]{filepath}[/bold]...\n")
-    findings = scan_env_file(filepath)
+    try:
+        findings = scan_env_file(filepath)
+    except FileNotFoundError as exc:
+        console.print(f"❌ Failed to read [bold]{filepath}[/bold]: {exc}", style="bold red")
+        raise SystemExit(1) from exc
+    except Exception as exc:  # pragma: no cover - defensive, but tested via CLI behavior
+        console.print(
+            f"❌ Unexpected error while scanning [bold]{filepath}[/bold]: {exc}",
+            style="bold red",
+        )
+        raise SystemExit(1) from exc
 
     if not findings:
         console.print("✅ No secrets detected.\n", style="green")
