@@ -26,7 +26,7 @@ def test_detects_long_hex_value(tmp_path):
 
 
 def test_detects_long_base64_value_and_value_helper():
-    value = "QWxhZGRpbjpvcGVuIHNlc2FtZQ==" * 2
+    value = "QWxhZGRpbjpvcGVuIHNlc2FtZQ" * 2
 
     assert is_suspect_value(value)
 
