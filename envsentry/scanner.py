@@ -106,7 +106,7 @@ def scan_env_file(filepath: PathLike) -> list[Finding]:
             key, raw_value = line.split("=", 1)
             key = key.strip()
             value = _normalize_value(raw_value)
-            if not key or not value:
+            if not key or _is_placeholder(value):
                 continue
 
             reasons: list[str] = []
