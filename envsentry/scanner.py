@@ -5,9 +5,8 @@ from __future__ import annotations
 import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Union
 
-PathLike = Union[str, Path]
+PathLike = str | Path
 
 SUSPECT_KEY_PARTS = (
     "SECRET",
