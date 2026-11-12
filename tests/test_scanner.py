@@ -1,4 +1,4 @@
-from envsentry.scanner import scan_env_file
+from envsentry.scanner import is_suspect_value, scan_env_file
 
 
 def test_detects_sensitive_key_without_retaining_value(tmp_path):
@@ -23,6 +23,12 @@ def test_detects_long_hex_value(tmp_path):
 
     assert len(findings) == 1
     assert "hexadecimal" in findings[0].reason
+
+
+def test_detects_long_base64_value_and_value_helper():
+    value = "QWxhZGRpbjpvcGVuIHNlc2FtZQ==" * 2
+
+    assert is_suspect_value(value)
 
 
 def test_ignores_comments_blank_lines_and_placeholders(tmp_path):
